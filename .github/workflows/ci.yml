@@ -28,11 +28,11 @@ jobs:
       - name: Resumen en GitHub (Exito)
         if: success()
         run: |
-          echo "## 🟢 Criterios de Aceptación: APROBADOS" >> $GITHUB_STEP_SUMMARY
+          echo "## Criterios de Aceptación: APROBADOS" >> $GITHUB_STEP_SUMMARY
           echo "Todos los escenarios pasaron exitosamente. El software cumple con lo que el cliente pidió." >> $GITHUB_STEP_SUMMARY
 
       - name: Resumen en GitHub (Fallo Detectado)
         if: failure()
         run: |
-          echo "## 🔴 Criterios de Aceptación: RECHAZADOS" >> $GITHUB_STEP_SUMMARY
-          echo "⚠️ **Se detectó una discrepancia en las reglas del negocio.** El código no puede ser integrado hasta corregirse." >> $GITHUB_STEP_SUMMARY
+          echo "## Criterios de Aceptación: RECHAZADOS" >> $GITHUB_STEP_SUMMARY
+          echo " **Se detectó una discrepancia en las reglas del negocio.** El código no puede ser integrado hasta corregirse." >> $GITHUB_STEP_SUMMARY
