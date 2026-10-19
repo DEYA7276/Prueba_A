@@ -6,7 +6,7 @@ function login(usuario, password) {
   }
 
   // Criterio 1: Permitir acceso con datos correctos
-  if (usuario === 'admin' && password === '1234') {
+  if (usuario === 'admin' && password === '123') {
     return 'Acceso concedido';
   }
 
