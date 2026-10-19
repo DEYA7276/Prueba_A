@@ -1,10 +1,10 @@
-# 🥒 Guía Completa de Pruebas de Aceptación con Cucumber.js
+#  Guía Completa de Pruebas de Aceptación con Cucumber.js
 
 Esta guía te explica **qué es Cucumber**, **de dónde sale cada archivo** (para que sepas explicárselo al profesor y compañeros), y te da el **paso a paso exacto para pasarles los códigos por WhatsApp**.
 
 ---
 
-## 🧐 1. ¿Qué es Cucumber y por qué se usa aquí?
+##  1. ¿Qué es Cucumber y por qué se usa aquí?
 
 > **En palabras sencillas:**  
 > En una prueba unitaria, el programador escribe código técnico.  
@@ -15,7 +15,7 @@ Esta guía te explica **qué es Cucumber**, **de dónde sale cada archivo** (par
 
 ---
 
-## 📂 2. ¿De dónde sale cada archivo? (Para responder dudas en clase)
+##  2. ¿De dónde sale cada archivo? (Para responder dudas en clase)
 
 | Elemento | ¿De dónde sale? | ¿Para qué sirve? |
 | :--- | :--- | :--- |
@@ -29,7 +29,7 @@ Esta guía te explica **qué es Cucumber**, **de dónde sale cada archivo** (par
 
 ---
 
-## 📲 3. Taller en Clase por WhatsApp (Paso a Paso)
+##  3. Taller en Clase por WhatsApp (Paso a Paso)
 
 Guía a tus compañeros con estos sencillos pasos:
 
@@ -186,7 +186,7 @@ Explícales al profesor y al grupo:
    ```
 3. Cada vez que alguien sube un cambio a GitHub, una máquina Linux en la nube instala las dependencias y ejecuta `npm test`.
 4. Muestra en tu proyector la pestaña **Actions** de tu repositorio:  
-   👉 [https://github.com/DEYA7276/Prueba_A/actions](https://github.com/DEYA7276/Prueba_A/actions) con el **check verde (✔ Passed)**.
+    [https://github.com/DEYA7276/Prueba_A/actions](https://github.com/DEYA7276/Prueba_A/actions) con el **check verde (✔ Passed)**.
 
 ---
 
