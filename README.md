@@ -1,80 +1,76 @@
-# 🧪 Pruebas de Aceptación - Ejemplo Sencillo de Inicio de Sesión (Login)
+# 🧪 Pruebas de Aceptación (Ejemplo Súper Sencillo en 1 Solo Archivo)
 
-Este proyecto es un ejemplo práctico, conciso y fácil de entender sobre cómo implementar **Pruebas de Aceptación automatizadas** utilizando **BDD (Behavior-Driven Development)** con **Cucumber.js** y su ejecución en un entorno **DevOps gratuito** mediante **GitHub Actions**.
+Este proyecto es el ejemplo más conciso, limpio y fácil de entender sobre **Pruebas de Aceptación**.  
+No requiere crear múltiples carpetas ni instalar librerías pesadas: **todo está en un solo archivo (`test.js`)** usando las herramientas nativas de Node.js.
 
 ---
 
 ## 🎯 ¿Qué es una Prueba de Aceptación?
+Una prueba de aceptación valida **si el sistema cumple con las necesidades del cliente y las reglas del negocio**, sin importar cómo esté programado internamente.
 
-Una **Prueba de Aceptación** no busca verificar algoritmos internos ni la sintaxis del código (eso lo hacen las pruebas unitarias). Su objetivo es **validar que el software cumpla con los criterios y expectativas del usuario final y del negocio**.
-
-Se escriben en un formato entendible por cualquier persona (lenguaje **Gherkin**):
-- **Dado que (Given):** El contexto o situación inicial.
-- **Cuando (When):** La acción que realiza el usuario.
-- **Entonces (Then):** El resultado esperado por el negocio.
-
----
-
-## 📂 Estructura del Proyecto
-
-El proyecto contiene únicamente los archivos esenciales para que sea fácil de entender y recrear:
-
-```text
-Pruebas_Ac/
-├── .github/
-│   └── workflows/
-│       └── ci.yml                     <- Flujo de DevOps en GitHub Actions
-├── features/
-│   ├── login.feature                  <- Criterios de aceptación en lenguaje natural (Gherkin)
-│   └── step_definitions/
-│       └── login_steps.js             <- Código que conecta el texto con la prueba real
-├── src/
-│   └── login.js                       <- Lógica del sistema bajo prueba
-├── cucumber.json                      <- Configuración básica de Cucumber
-├── package.json                       <- Configuración del proyecto y scripts
-├── GUIA_EXPOSICION_Y_RECREACION.md    <- Guion completo para exponer y recrear desde cero
-└── README.md                          <- Este archivo
-```
+En este ejemplo validamos 3 criterios de aceptación para un **Login**:
+1. **Éxito:** Si el usuario es `"admin"` y la contraseña es `"1234"`, responde `"Acceso concedido"`.
+2. **Contraseña incorrecta:** Si la clave no coincide, responde `"Credenciales incorrectas"`.
+3. **Campos vacíos:** Si falta algún dato, responde `"Todos los campos son obligatorios"`.
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto (En 2 Pasos)
+## 🚀 Cómo Recrearlo en 1 Minuto (Para tus compañeros)
 
-### Requisitos Previos:
-- Tener instalado [Node.js](https://nodejs.org/) (versión 18 o superior).
-
-### Paso 1: Instalar dependencias
-Abre la terminal en la carpeta del proyecto y ejecuta:
+### 1. Crear una carpeta y abrirla en VS Code
 ```bash
-npm install
+mkdir pruebas-aceptacion
+cd pruebas-aceptacion
 ```
 
-### Paso 2: Ejecutar las pruebas de aceptación
+### 2. Crear un único archivo llamado `test.js`
+Copia y pega este contenido en `test.js`:
+
+```javascript
+const { test, describe } = require('node:test');
+const assert = require('node:assert');
+
+// 1. SISTEMA BAJO PRUEBA (Función de Login)
+function login(usuario, password) {
+  if (!usuario || !password || usuario.trim() === '' || password.trim() === '') {
+    return 'Todos los campos son obligatorios';
+  }
+  if (usuario === 'admin' && password === '1234') {
+    return 'Acceso concedido';
+  }
+  return 'Credenciales incorrectas';
+}
+
+// 2. PRUEBAS DE ACEPTACIÓN (Validación de criterios de negocio)
+describe('Criterios de Aceptación para Inicio de Sesión', () => {
+
+  test('Criterio 1: Debe permitir el acceso cuando el usuario y clave son válidos', () => {
+    const resultado = login('admin', '1234');
+    assert.strictEqual(resultado, 'Acceso concedido');
+  });
+
+  test('Criterio 2: Debe rechazar el acceso cuando la contraseña no coincide', () => {
+    const resultado = login('admin', 'clave_erronea');
+    assert.strictEqual(resultado, 'Credenciales incorrectas');
+  });
+
+  test('Criterio 3: Debe avisar que faltan datos cuando los campos están vacíos', () => {
+    const resultado = login('', '');
+    assert.strictEqual(resultado, 'Todos los campos son obligatorios');
+  });
+
+});
+```
+
+### 3. Ejecutar la prueba
+En la terminal de VS Code, escribe:
 ```bash
-npm test
+node --test test.js
 ```
 
-Verás una salida como esta en tu consola:
-```text
-3 scenarios (3 passed)
-12 steps (12 passed)
-0m 0.034s
-```
+¡Y listo! Verás los 3 criterios de aceptación aprobados con sus checks verdes (`✔`).
 
 ---
 
-## 🔄 Ejecución en Entorno DevOps (GitHub Actions)
-
-Cada vez que se sube un cambio a GitHub (`git push`), el pipeline definido en `.github/workflows/ci.yml` se dispara automáticamente en una máquina virtual Linux en la nube:
-1. Descarga el repositorio.
-2. Configura Node.js.
-3. Instala dependencias (`npm install`).
-4. Ejecuta las pruebas de aceptación (`npm test`).
-5. Marca el commit con un **check verde (✔)** si todas las pruebas de aceptación fueron aprobadas.
-
----
-
-## 📖 Documentación Completa y Guion de Exposición
-
-Para aprender cómo recrear este proyecto desde una carpeta vacía y ver el guion exacto para explicarlo en clase frente a tus compañeros y profesor, consulta el archivo:
-👉 **[GUIA_EXPOSICION_Y_RECREACION.md](./GUIA_EXPOSICION_Y_RECREACION.md)**
+## ☁️ Entorno DevOps (GitHub Actions)
+El archivo `.github/workflows/ci.yml` ejecuta automáticamente estas pruebas de aceptación en una máquina Linux en la nube en cada `push`.

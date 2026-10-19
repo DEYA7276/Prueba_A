@@ -1,6 +1,5 @@
-name: Pipeline CI - Pruebas de Aceptacion
+name: Pruebas de Aceptacion CI
 
-# Se ejecuta automáticamente en cada push o pull request a la rama main o master
 on:
   push:
     branches: [ main, master ]
@@ -9,25 +8,17 @@ on:
 
 jobs:
   ejecutar-pruebas:
-    name: Ejecutar Pruebas de Aceptación (Cucumber)
-    # Plataforma libre y gratuita proporcionada por GitHub
+    name: Pruebas de Aceptacion en Linux
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Descargar el código del repositorio
-      - name: Descargar repositorio (Checkout)
+      - name: Descargar codigo
         uses: actions/checkout@v4
 
-      # Paso 2: Configurar el entorno de ejecución Node.js
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # Paso 3: Instalar las dependencias del proyecto
-      - name: Instalar dependencias
-        run: npm install
-
-      # Paso 4: Ejecutar las pruebas de aceptación automatizadas
-      - name: Correr pruebas de aceptación
-        run: npm test
+      - name: Correr pruebas de aceptacion
+        run: node --test test.js
