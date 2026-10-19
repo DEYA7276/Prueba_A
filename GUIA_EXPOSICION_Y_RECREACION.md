@@ -1,126 +1,135 @@
-# 📘 Guía Completa: Pruebas de Aceptación, Exposición y Recreación desde Cero
+# 📘 Manual Práctico y Taller: Pruebas de Aceptación desde Cero
 
-Este documento está diseñado para ayudarte a **comprender**, **exponer** con total seguridad y permitir que tus **compañeros recreen este proyecto desde cero** en sus computadoras.
-
----
-
-## 📌 PARTE 1: Conceptos Fundamentales (Explicado desde 0)
-
-### 1. ¿Qué es una Prueba de Aceptación?
-Una **Prueba de Aceptación** es una prueba formal que se realiza para determinar si un sistema satisface los **criterios de aceptación** definidos por el cliente o los interesados del negocio (*Product Owner*, usuarios finales).
-
-> **En palabras sencillas:**  
-> *"No nos interesa cómo está programada la función por dentro; nos interesa que haga exactamente lo que el usuario final necesita que haga."*
-
-### 2. Diferencia Clave frente a otros tipos de pruebas
-| Tipo de Prueba | ¿Qué evalúa? | ¿Quién la escribe? | Ejemplo |
-| :--- | :--- | :--- | :--- |
-| **Prueba Unitaria** | Valida una función o método aislado a nivel de código. | Desarrollador | ¿La función `sumar(2, 3)` retorna `5`? |
-| **Prueba de Integración** | Valida la comunicación entre dos o más módulos (ej. API con Base de Datos). | Desarrollador / QA | ¿El servicio de login logra consultar la tabla `usuarios` en MySQL? |
-| **Prueba de Aceptación** | Valida el **flujo completo y las reglas de negocio** desde la perspectiva del usuario. | Negocio + QA + Dev (BDD) | ¿Si el usuario ingresa sus datos válidos, el sistema le permite entrar y le da la bienvenida? |
-
-### 3. El Lenguaje Gherkin (BDD: Behavior-Driven Development)
-Para que tanto un cliente (que no sabe programar) como un desarrollador entiendan la prueba, se utiliza el estándar **Gherkin**:
-- **Dado que (Given):** Establece el punto de partida o contexto (*"Dado que el usuario tiene credenciales válidas"*).
-- **Cuando (When):** La acción que el usuario ejecuta (*"Cuando ingresa usuario 'admin' y clave '1234'"*).
-- **Entonces (Then):** La consecuencia esperada según el negocio (*"Entonces el sistema debe permitir el acceso"*).
+Este documento está diseñado para que **tú guíes a tus compañeros paso a paso** y cada uno de ellos pueda **recrear exactamente el mismo proyecto** en su propia computadora sin perderse ni tener errores.
 
 ---
 
-## 🎤 PARTE 2: Guion de Exposición para la Clase
+## 🎯 ¿Qué vamos a construir juntos?
 
-*(Usa este guion para tu presentación frente al profesor y tus compañeros. Puedes apoyarte mostrando tu pantalla).*
+Vamos a construir un sistema muy sencillo de **Inicio de Sesión (Login)** y validar sus **Criterios de Aceptación** usando **Cucumber.js** y **GitHub Actions**.
 
-### ⏱️ Minuto 1: Introducción y Definición
-> *"Buenos días, profesor y compañeros. Hoy les vamos a presentar las **Pruebas de Aceptación**.*  
-> *A diferencia de las pruebas unitarias que revisan líneas de código individuales, las pruebas de aceptación validan que el software **cumpla con los requisitos del negocio y del usuario final**.*  
-> *Para este ejemplo elegimos un caso que todos conocemos: un **Sistema de Inicio de Sesión (Login)**."*
-
-### ⏱️ Minuto 2: Los Criterios de Aceptación del Negocio
-> *"El cliente nos dio 3 criterios de aceptación:*  
-> *1. Si el usuario y contraseña son correctos, el sistema debe dar acceso y mostrar 'Acceso concedido'.*  
-> *2. Si la contraseña es incorrecta, debe bloquear el acceso y decir 'Credenciales incorrectas'.*  
-> *3. Si se dejan campos en blanco, debe advertir que todos los campos son obligatorios.*  
->  
-> *Para automatizar esto usamos **Cucumber** y lenguaje **Gherkin**, que nos permite escribir las pruebas en español legible por humanos."*
-
-### ⏱️ Minuto 3: Mostrando el archivo `.feature` y el código
-*(Muestra en pantalla el archivo `features/login.feature` y luego `features/step_definitions/login_steps.js`)*
-> *"Miren el archivo `login.feature`: está en español neutro con la estructura `Dado`, `Cuando`, `Entonces`. Cualquier persona del negocio puede leerlo y aprobarlo.*  
-> *Luego, en `login_steps.js`, conectamos cada frase con una pequeña función de JavaScript que ejecuta la acción y comprueba el resultado con aserciones."*
-
-### ⏱️ Minuto 4: Demostración en vivo en la Terminal
-*(Abre la terminal en la carpeta del proyecto y ejecuta `npm test`)*
-> *"Ahora voy a correr la prueba en vivo ejecutando `npm test`:*  
-> *(Esperas 2 segundos a que aparezca la salida en verde)*  
-> *Como ven, se ejecutaron 3 escenarios con 12 pasos en milisegundos, y todos pasaron con éxito."*
-
-### ⏱️ Minuto 5: Demostración en Entorno DevOps (GitHub Actions)
-*(Abre el navegador en tu repositorio de GitHub y ve a la pestaña **Actions**)*
-> *"En el entorno profesional moderno no basta con correr las pruebas en nuestra computadora. Usamos **DevOps e Integración Continua (CI/CD)**.*  
-> *En nuestro repositorio de GitHub configuramos **GitHub Actions** (que es una plataforma libre y gratuita).*  
-> *Cada vez que alguien hace un `git push`, un servidor en la nube de GitHub clona el proyecto, instala las dependencias y ejecuta las pruebas de aceptación de forma automática.*  
-> *Si todas las pruebas de aceptación pasan, el commit se marca con un check verde. Si fallara un criterio de aceptación, el sistema alerta al equipo de inmediato."*
+### ¿Qué es una Prueba de Aceptación en palabras simples?
+> Una prueba de aceptación **no revisa si tu código está bonito**.  
+> Revisa **si el programa hace lo que el cliente pidió**.  
+> Por eso se escribe en **lenguaje humano (español)** usando tres palabras mágicas:
+> - **Dado que:** El punto de partida.
+> - **Cuando:** Lo que hace el usuario.
+> - **Entonces:** Lo que el sistema debe responder.
 
 ---
 
-## 🛠️ PARTE 3: Procedimientos Claros para Recrearlo desde Cero (Paso a Paso)
+## 📋 REQUISITOS PREVIOS (Antes de empezar el taller)
 
-Pasa esta sección a tus compañeros para que puedan construir el proyecto desde una carpeta vacía en menos de 5 minutos:
+Pide a tus compañeros que verifiquen que tienen instalado:
+1. **Node.js** (Cualquier versión 18 o superior).  
+   *Para comprobarlo, abren la terminal y escriben: `node -v`.*
+2. **Visual Studio Code** (o su editor preferido).
+3. **Git** (Para la parte de DevOps).
 
-### Paso 1: Crear la carpeta de trabajo
-Abre la terminal (PowerShell, CMD o Terminal de VS Code) y escribe:
-```bash
-mkdir mi-prueba-aceptacion
-cd mi-prueba-aceptacion
-```
+---
 
-### Paso 2: Inicializar el proyecto e instalar Cucumber
+## 🛠️ PASO A PASO PARA CADA COMPAÑERO
+
+Guía a tus compañeros siguiendo exactamente estos **8 pasos**:
+
+---
+
+### 🔹 PASO 1: Crear una carpeta limpia y abrir la terminal
+Diles a tus compañeros:
+1. Creen una nueva carpeta en su escritorio llamada `pruebas-aceptacion`.
+2. Abran **Visual Studio Code**, vayan a `Archivo > Abrir carpeta` y elijan esa carpeta.
+3. Abran la terminal integrada de VS Code (`Ctrl + ñ` o `Terminal > Nueva Terminal`).
+
+---
+
+### 🔹 PASO 2: Inicializar el proyecto e instalar Cucumber
+En la terminal, escribir estos dos comandos (uno a la vez):
+
 ```bash
 npm init -y
+```
+*(Esto crea el archivo `package.json` base).*
+
+```bash
 npm install --save-dev @cucumber/cucumber
 ```
+*(Esto descarga e instala la herramienta **Cucumber**, que interpreta el lenguaje Gherkin).*
 
-### Paso 3: Crear la carpeta `src` y el archivo `src/login.js`
-Crea una carpeta llamada `src` y adentro un archivo llamado `login.js`:
+---
+
+### 🔹 PASO 3: Crear el código del sistema (`src/login.js`)
+1. En VS Code, creen una carpeta llamada `src`.
+2. Dentro de `src`, creen el archivo `login.js`.
+3. Peguen este código:
+
 ```javascript
-// src/login.js
+/*
+ En una PRUEBA DE ACEPTACIÓN, validamos que este módulo cumpla con los
+ requerimientos acordados con el cliente/negocio:
+ 
+ Criterios de Aceptación:
+ 1. Si el usuario es "admin" y la clave es "1234", el acceso es PERMITIDO.
+ 2. Si la clave o el usuario son incorrectos, el acceso es DENEGADO.
+ 3. Si se dejan campos vacíos, el sistema debe avisar que son obligatorios.
+*/
+
 function autenticarUsuario(usuario, password) {
-  // Validación 1: Campos vacíos
+  // Regla 1: Validar que no se envíen campos vacíos
   if (!usuario || !password || usuario.trim() === '' || password.trim() === '') {
-    return { accesoConcedido: false, mensaje: "Todos los campos son obligatorios" };
+    return {
+      accesoConcedido: false,
+      mensaje: "Todos los campos son obligatorios"
+    };
   }
 
-  // Validación 2: Credenciales correctas
+  // Regla 2: Validar credenciales correctas (simulación de base de datos)
   if (usuario === "admin" && password === "1234") {
-    return { accesoConcedido: true, mensaje: "Acceso concedido" };
+    return {
+      accesoConcedido: true,
+      mensaje: "Acceso concedido"
+    };
   }
 
-  // Validación 3: Credenciales equivocadas
-  return { accesoConcedido: false, mensaje: "Credenciales incorrectas" };
+  // Regla 3: Si las credenciales no coinciden, rechazar acceso
+  return {
+    accesoConcedido: false,
+    mensaje: "Credenciales incorrectas"
+  };
 }
 
+// Exportamos la función para que las pruebas puedan utilizarla
 module.exports = { autenticarUsuario };
 ```
 
-### Paso 4: Crear la carpeta `features` y el archivo `features/login.feature`
-Crea una carpeta llamada `features` y adentro el archivo `login.feature`:
+---
+
+### 🔹 PASO 4: Escribir los Criterios de Aceptación en Español (`features/login.feature`)
+1. Creen una carpeta en la raíz llamada `features`.
+2. Adentro creen un archivo llamado `login.feature`.
+3. Peguen este texto (es lenguaje **Gherkin** en español):
+
 ```gherkin
 # language: es
 Característica: Inicio de Sesión de Usuario
+  Como usuario del sistema
+  Quiero ingresar mis credenciales
+  Para acceder a mi cuenta de manera segura
 
+  # Criterio 1: Acceso exitoso con datos correctos
   Escenario: Inicio de sesión exitoso
     Dado que el usuario tiene credenciales válidas
     Cuando ingresa el usuario "admin" y la contraseña "1234"
     Entonces el sistema debe permitir el acceso
     Y debe mostrar el mensaje "Acceso concedido"
 
+  # Criterio 2: Bloqueo por contraseña incorrecta
   Escenario: Inicio de sesión con contraseña equivocada
     Dado que el usuario intenta ingresar al sistema
     Cuando ingresa el usuario "admin" y la contraseña "clave_mala"
     Entonces el sistema debe denegar el acceso
     Y debe mostrar el mensaje "Credenciales incorrectas"
 
+  # Criterio 3: Bloqueo si faltan datos
   Escenario: Intento de inicio de sesión con campos vacíos
     Dado que el usuario no completa los campos
     Cuando ingresa el usuario "" y la contraseña ""
@@ -128,30 +137,49 @@ Característica: Inicio de Sesión de Usuario
     Y debe mostrar el mensaje "Todos los campos son obligatorios"
 ```
 
-### Paso 5: Crear los pasos en `features/step_definitions/login_steps.js`
-Crea la subcarpeta `features/step_definitions/` y adentro el archivo `login_steps.js`:
+> **Explicación para tus compañeros:**  
+> *"Fíjense que este archivo no tiene código raro. Parece un documento en Word que cualquier cliente o gerente puede leer y entender."*
+
+---
+
+### 🔹 PASO 5: Conectar el texto con el código (`features/step_definitions/login_steps.js`)
+1. Dentro de la carpeta `features`, creen una subcarpeta llamada `step_definitions`.
+2. Adentro creen el archivo `login_steps.js`.
+3. Peguen este código:
+
 ```javascript
-// features/step_definitions/login_steps.js
+/*
+  AUTOMATIZACIÓN DE PASOS DE ACEPTACIÓN (STEP DEFINITIONS)
+  Este archivo conecta el texto en español de 'login.feature' con el código JavaScript.
+  Cada paso de Gherkin (Dado, Cuando, Entonces) tiene su función equivalente aquí.
+*/
+
 const { Given, When, Then } = require('@cucumber/cucumber');
 const assert = require('assert');
+
+// Importamos la función real que vamos a probar
 const { autenticarUsuario } = require('../../src/login');
 
 let resultado = null;
 
+// 1. DADO (Contexto inicial)
 Given('que el usuario tiene credenciales válidas', function () {});
 Given('que el usuario intenta ingresar al sistema', function () {});
 Given('que el usuario no completa los campos', function () {});
 
+// 2. CUANDO (Acción del usuario)
 When('ingresa el usuario {string} y la contraseña {string}', function (usuario, password) {
+  // Ejecutamos la función con los datos del escenario
   resultado = autenticarUsuario(usuario, password);
 });
 
+// 3. ENTONCES (Comprobación con assert)
 Then('el sistema debe permitir el acceso', function () {
-  assert.strictEqual(resultado.accesoConcedido, true);
+  assert.strictEqual(resultado.accesoConcedido, true, "Se esperaba que el acceso fuera permitido");
 });
 
 Then('el sistema debe denegar el acceso', function () {
-  assert.strictEqual(resultado.accesoConcedido, false);
+  assert.strictEqual(resultado.accesoConcedido, false, "Se esperaba que el acceso fuera denegado");
 });
 
 Then('debe mostrar el mensaje {string}', function (mensajeEsperado) {
@@ -159,29 +187,52 @@ Then('debe mostrar el mensaje {string}', function (mensajeEsperado) {
 });
 ```
 
-### Paso 6: Configurar el script de ejecución en `package.json`
-Abre `package.json` y asegúrate de que la sección `"scripts"` tenga lo siguiente:
+---
+
+### 🔹 PASO 6: Configurar Cucumber y el comando de prueba
+1. En la raíz del proyecto, creen un archivo llamado `cucumber.json`:
 ```json
-"scripts": {
-  "test": "cucumber-js --format summary"
+{
+  "default": {
+    "paths": ["features/**/*.feature"],
+    "require": ["features/step_definitions/**/*.js"],
+    "format": ["summary"]
+  }
 }
 ```
 
-### Paso 7: Ejecutar las pruebas
-En la terminal, corre:
-```bash
-npm test
+2. Abran el archivo `package.json` y modifiquen la parte de `"scripts"` para que quede así:
+```json
+"scripts": {
+  "test": "cucumber-js --exit"
+}
 ```
-¡Listo! Verás los 3 escenarios aprobados.
 
 ---
 
-## ☁️ PARTE 4: Configuración DevOps en GitHub Actions (Plataforma Libre)
+### 🔹 PASO 7: ¡Ejecutar la prueba en vivo!
+En la terminal, escriban:
+```bash
+npm test
+```
 
-Para cumplir con el requerimiento de DevOps en una plataforma gratuita:
+**Lo que verán en pantalla:**
+```text
+3 scenarios (3 passed)
+12 steps (12 passed)
+0m 0.043s (0m 0.003s executing your code)
+```
 
-1. Crea las carpetas `.github/workflows/` en la raíz de tu proyecto.
-2. Crea el archivo `.github/workflows/ci.yml`:
+🎉 **¡Listo!** En este punto, todos tus compañeros ya tienen sus pruebas de aceptación corriendo localmente.
+
+---
+
+### 🔹 PASO 8: Ejecución en Entorno DevOps (GitHub Actions - Plataforma Libre)
+Ahora le explicas a tus compañeros cómo llevar esto a la nube para que se ejecute solo en cada cambio:
+
+1. En la raíz, creen la carpeta `.github` y adentro la carpeta `workflows`.
+2. Adentro creen el archivo `.github/workflows/ci.yml`:
+
 ```yaml
 name: Pipeline CI - Pruebas de Aceptacion
 
@@ -192,13 +243,15 @@ on:
     branches: [ main, master ]
 
 jobs:
-  pruebas-aceptacion:
+  pruebas:
+    name: Ejecutar Pruebas de Aceptacion en Servidor Linux
     runs-on: ubuntu-latest
+
     steps:
       - name: Descargar codigo
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -206,55 +259,46 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Ejecutar pruebas de aceptacion
+      - name: Ejecutar pruebas
         run: npm test
 ```
 
-### Comandos Git para subirlo a tu repositorio:
+3. Cada compañero sube su proyecto a su GitHub con:
 ```bash
 git init
-git remote add origin https://github.com/DEYA7276/Prueba_A.git
 git add .
-git commit -m "feat: implementacion de pruebas de aceptacion con cucumber y devops"
+git commit -m "feat: pruebas de aceptacion con cucumber"
 git branch -M main
+git remote add origin https://github.com/TU-USUARIO/TU-REPO.git
 git push -u origin main
 ```
+4. Van a la pestaña **Actions** en su GitHub y verán su pipeline corriendo automáticamente en una máquina Linux gratuita y terminando en **verde (✔ Passed)**.
 
 ---
 
-## 📊 PARTE 5: Demostración de Resultados
+## 🎤 GUION DE LO QUE DEBES DECIR MIENTRAS LO EXPLICAS
 
-### 1. Salida en Consola Local
-Al ejecutar `npm test`, la terminal entrega el siguiente resumen:
-```text
-> pruebas-aceptacion-login@1.0.0 test
-> cucumber-js --format summary
+### 1. Presentación Inicial (1 min)
+> *"Compañeros y profesor, hoy vamos a ver **Pruebas de Aceptación**. A diferencia de una prueba unitaria donde el programador prueba si una función suma bien, la prueba de aceptación evalúa **si el software hace exactamente lo que el usuario final necesita para dar por aceptado el proyecto**.*  
+> *Para que todos lo entendamos y lo hagamos juntos, elegimos un módulo de Login."*
 
-3 scenarios (3 passed)
-12 steps (12 passed)
-0m 0.034s (0m 0.002s executing your code)
-```
+### 2. Mientras crean el archivo `features/login.feature` (1 min)
+> *"Observen la pantalla. Estamos usando una herramienta llamada **Cucumber** con un estándar llamado **Gherkin**.*  
+> *¿Por qué usamos 'Dado que', 'Cuando' y 'Entonces'? Porque de esa manera el cliente, el maestro o el dueño del negocio puede leer las pruebas sin saber programar y decir: 'Sí, exactamente eso es lo que quiero que haga mi sistema'."*
 
-**Interpretación de los Resultados:**
-- `3 scenarios (3 passed)`: Los 3 criterios de negocio (éxito, contraseña mala y campos vacíos) fueron validados y cumplidos al 100%.
-- `12 steps (12 passed)`: Cada una de las 12 cláusulas (`Dado`, `Cuando`, `Entonces`, `Y`) ejecutó su aserción correspondiente sin ninguna discrepancia.
-- `0m 0.034s`: La suite completa se ejecutó en una fracción de segundo, lo que demuestra la eficiencia del framework.
+### 3. Mientras ejecutan `npm test` (1 min)
+> *"Al escribir `npm test`, Cucumber lee el archivo en español, busca su función correspondiente en `login_steps.js`, ejecuta la lógica real en `src/login.js` y valida las respuestas.*  
+> *Si las credenciales son correctas, aprueba. Si la contraseña es mala o hay campos vacíos, verifica que el sistema lo rechace con el mensaje adecuado."*
 
-### 2. Resultado en la Plataforma DevOps (GitHub Actions)
-- Al entrar a `https://github.com/DEYA7276/Prueba_A/actions`:
-  - Se visualiza el flujo de trabajo: `Pipeline CI - Pruebas de Aceptacion`.
-  - Aparece el icono verde con el check (**✔ Passed**).
-  - Al dar clic en el trabajo `pruebas-aceptacion`, se puede inspeccionar en vivo el log con los mismos 3 escenarios ejecutados en un contenedor Linux en la nube.
+### 4. Al mostrar GitHub Actions (1 min)
+> *"Por último, en un entorno DevOps profesional no dependemos de decir 'en mi máquina sí funciona'.*  
+> *Con **GitHub Actions**, que es una plataforma libre y gratuita, cada vez que enviamos código, un servidor en la nube ejecuta estas pruebas de aceptación automáticamente. Si todo pasa, nos da el check verde que garantiza la calidad del software."*
 
 ---
 
-## ❓ Preguntas Frecuentes del Profesor y Cómo Responderlas
+## ⚠️ Solución a dudas comunes de tus compañeros
 
-1. **¿Por qué usaron Cucumber / Gherkin para las pruebas de aceptación?**  
-   *Respuesta:* "Porque Gherkin permite escribir los criterios de aceptación en lenguaje natural (español) usando el formato Dado-Cuando-Entonces. Esto permite que el cliente, el Product Owner y el equipo de desarrollo compartan exactamente la misma visión de qué debe hacer el sistema."
-
-2. **¿Cuál es la diferencia entre esta prueba de aceptación y una prueba unitaria hecha con Jest?**  
-   *Respuesta:* "Una prueba unitaria evalúa si una función matemática o método no falla internamente. La prueba de aceptación evalúa la historia de usuario completa y si el resultado final cumple los términos que el usuario final espera para aceptar el software."
-
-3. **¿Por qué GitHub Actions representa un entorno DevOps?**  
-   *Respuesta:* "Porque implementa Integración Continua (CI). En lugar de depender de que el desarrollador pruebe en su máquina local ('en mi máquina sí funciona'), cada cambio de código enviado al repositorio pasa por un pipeline automatizado en un servidor neutral que garantiza la calidad del software antes de que pase a producción."
+- **¿Qué pasa si les sale `cucumber-js no se reconoce como un comando interno`?**  
+  *Solución:* Asegurarse de ejecutar `npm install` primero para que se descarguen las dependencias.
+- **¿Qué pasa si modifican la clave en `login.js` a otra cosa?**  
+  *Solución:* La prueba fallará en rojo de inmediato, demostrando que el criterio de aceptación detectó un cambio que rompe la expectativa del negocio.
