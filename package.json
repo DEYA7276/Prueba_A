@@ -1,0 +1,22 @@
+{
+  "name": "pruebas-aceptacion-login",
+  "version": "1.0.0",
+  "description": "Ejemplo super sencillo de Pruebas de Aceptación con Cucumber.js y DevOps en GitHub Actions",
+  "main": "src/login.js",
+  "scripts": {
+    "test": "cucumber-js --format summary",
+    "test:detallado": "cucumber-js"
+  },
+  "keywords": [
+    "pruebas-aceptacion",
+    "bdd",
+    "cucumber",
+    "devops"
+  ],
+  "author": "Equipo de Pruebas",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0"
+  }
+}
