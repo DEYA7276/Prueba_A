@@ -6,8 +6,8 @@
     "require": [
       "features/step_definitions/**/*.js"
     ],
-    "formatOptions": {
-      "snippetInterface": "synchronous"
-    }
+    "format": [
+      "summary"
+    ]
   }
 }

@@ -4,8 +4,7 @@
   "description": "Ejemplo super sencillo de Pruebas de Aceptación con Cucumber.js y DevOps en GitHub Actions",
   "main": "src/login.js",
   "scripts": {
-    "test": "cucumber-js --format summary",
-    "test:detallado": "cucumber-js"
+    "test": "cucumber-js --exit"
   },
   "keywords": [
     "pruebas-aceptacion",
