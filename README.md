@@ -1,10 +1,10 @@
-# 🥒 Pruebas de Aceptación con Cucumber.js y Gherkin
+#  Pruebas de Aceptación con Cucumber.js y Gherkin
 
 Este proyecto es un ejemplo práctico, claro y conciso de **Pruebas de Aceptación automatizadas** utilizando **Cucumber.js** (BDD) y su ejecución en un entorno **DevOps gratuito** con **GitHub Actions**.
 
 ---
 
-## 🎯 ¿Qué es Cucumber y por qué se usa en Pruebas de Aceptación?
+##  ¿Qué es Cucumber y por qué se usa en Pruebas de Aceptación?
 
 En las pruebas de aceptación, el cliente o dueño del negocio no sabe programar.  
 **Cucumber** soluciona esto permitiendo escribir las pruebas en **lenguaje humano (español)** con el estándar **Gherkin**:
@@ -16,7 +16,7 @@ Cucumber se encarga de leer ese texto en español y ejecutar el código para com
 
 ---
 
-## 📂 Estructura Simple del Proyecto (Solo 3 archivos)
+##  Estructura Simple del Proyecto (Solo 3 archivos)
 
 ```text
 Pruebas_Ac/
@@ -30,7 +30,7 @@ Pruebas_Ac/
 
 ---
 
-## 🚀 Cómo Recrearlo en Clase (Paso a Paso)
+##  Cómo Recrearlo en Clase (Paso a Paso)
 
 ### 1. Inicializar e instalar Cucumber
 En una carpeta vacía, abre la terminal y escribe:
@@ -62,5 +62,5 @@ npm test
 
 ---
 
-## ☁️ Entorno DevOps (GitHub Actions)
+##  Entorno DevOps (GitHub Actions)
 En cada `git push`, GitHub Actions ejecuta automáticamente `npm test` en una máquina Linux gratuita y valida los criterios de aceptación con un **check verde (✔ Passed)**.

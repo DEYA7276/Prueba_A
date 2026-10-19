@@ -1,5 +1,5 @@
 
-## 🧐 1. ¿Qué es Cucumber y por qué se usa aquí?
+##  1. ¿Qué es Cucumber y por qué se usa aquí?
 
 > **En palabras sencillas:**  
 > En una prueba unitaria, el programador escribe código técnico.  
@@ -10,7 +10,7 @@
 
 ---
 
-## 📂 2. ¿De dónde sale cada archivo? (Para responder dudas en clase)
+##  2. ¿De dónde sale cada archivo? (Para responder dudas en clase)
 
 | Elemento | ¿De dónde sale? | ¿Para qué sirve? |
 | :--- | :--- | :--- |
