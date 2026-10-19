@@ -1,12 +1,11 @@
 {
-  "name": "pruebas-de-aceptacion",
+  "name": "pruebas-aceptacion",
   "version": "1.0.0",
-  "description": "Pruebas de Aceptacion con Node.js",
-  "main": "login.js",
+  "description": "Pruebas de Aceptacion con Cucumber y Gherkin",
   "scripts": {
-    "test": "node --test test.js"
+    "test": "cucumber-js --exit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0"
+  }
 }

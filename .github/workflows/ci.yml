@@ -1,4 +1,4 @@
-name: Pruebas de Aceptacion CI
+name: Pruebas de Aceptacion con Cucumber (DevOps)
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
 
 jobs:
   ejecutar-pruebas:
-    name: Pruebas de Aceptacion en Linux
+    name: Ejecutar Cucumber en Linux
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar codigo
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Node.js
@@ -20,5 +20,8 @@ jobs:
         with:
           node-version: 20
 
+      - name: Instalar Cucumber
+        run: npm install
+
       - name: Correr pruebas de aceptacion
-        run: node --test test.js
+        run: npm test

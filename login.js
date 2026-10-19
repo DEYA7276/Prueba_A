@@ -1,23 +1,17 @@
-/**
- * login.js - SISTEMA BAJO PRUEBA
- * 
- * Esta es la lógica de negocio que valida las credenciales del usuario.
- */
-
+// login.js
 function login(usuario, password) {
-  // Criterio 3: Validar que no haya campos vacíos
+  // Criterio 3: No permitir campos vacíos
   if (!usuario || !password || usuario.trim() === '' || password.trim() === '') {
     return 'Todos los campos son obligatorios';
   }
 
-  // Criterio 1: Validar credenciales correctas
+  // Criterio 1: Permitir acceso con datos correctos
   if (usuario === 'admin' && password === '1234') {
     return 'Acceso concedido';
   }
 
-  // Criterio 2: Bloquear credenciales incorrectas
+  // Criterio 2: Rechazar datos equivocados
   return 'Credenciales incorrectas';
 }
 
-// Exportamos la función para que el archivo de pruebas pueda usarla
 module.exports = { login };

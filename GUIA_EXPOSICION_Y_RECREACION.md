@@ -1,39 +1,59 @@
-# 📘 Guía Rápida: Explicación de Archivos y Taller por WhatsApp
+# 🥒 Guía Completa de Pruebas de Aceptación con Cucumber.js
 
-Esta guía te explica **de dónde sale cada archivo** para que puedas responder cualquier pregunta y te da el **paso a paso exacto para enviar los códigos por WhatsApp** a tus compañeros.
+Esta guía te explica **qué es Cucumber**, **de dónde sale cada archivo** (para que sepas explicárselo al profesor y compañeros), y te da el **paso a paso exacto para pasarles los códigos por WhatsApp**.
 
 ---
 
-## 🧐 1. ¿De dónde sale cada archivo? (Para que sepas explicárselos)
+## 🧐 1. ¿Qué es Cucumber y por qué se usa aquí?
 
-| Archivo / Carpeta | ¿De dónde sale? | ¿Para qué sirve? |
+> **En palabras sencillas:**  
+> En una prueba unitaria, el programador escribe código técnico.  
+> Pero en una **Prueba de Aceptación**, el que define qué debe hacer el software es el **cliente** (que no sabe programar).  
+>  
+> **Cucumber** es la herramienta que sirve de **traductor**:  
+> Permite que el cliente escriba los criterios en **español normal** (`Dado que`, `Cuando`, `Entonces`) y Cucumber los lee y los ejecuta automáticamente contra el código real.
+
+---
+
+## 📂 2. ¿De dónde sale cada archivo? (Para responder dudas en clase)
+
+| Elemento | ¿De dónde sale? | ¿Para qué sirve? |
 | :--- | :--- | :--- |
-| **`package.json`** | Se crea automáticamente con el comando `npm init -y`. | Es el carnet de identidad del proyecto. Guarda el nombre, la versión y los comandos (como `npm test`). |
-| **`node_modules/`** | Se crea cuando instalas librerías con `npm install`. | Es la carpeta donde se descargan los paquetes externos. *(En nuestro ejemplo usamos `node:test` que ya viene dentro de Node.js, por lo que tus compañeros ni siquiera necesitan descargar paquetes pesados).* |
-| **`package-lock.json`** | Se genera solo al usar `npm install`. | Bloquea las versiones exactas de las librerías para que todos tengan las mismas. |
-| **`login.js`** | Lo creas tú a mano. | Es el **programa a probar** (la función con la lógica del negocio). |
-| **`test.js`** | Lo creas tú a mano. | Es la **prueba de aceptación** que valida que `login.js` cumpla los criterios del cliente. |
-| **`.github/workflows/ci.yml`** | Creas la carpeta y el archivo a mano. | Le indica a **GitHub Actions** (la nube gratuita) que ejecute las pruebas automáticamente en cada `git push`. |
+| **`package.json`** | Escribiendo en la terminal: `npm init -y` | Es la configuración del proyecto. Guarda el nombre y el comando para correr las pruebas (`npm test`). |
+| **`node_modules/`** | Al escribir: `npm install --save-dev @cucumber/cucumber` | **¡Aquí es donde se descarga Cucumber de internet!** Node crea esta carpeta automáticamente para guardar los paquetes de Cucumber. |
+| **`package-lock.json`** | Se crea automáticamente junto con `node_modules` | Registra las versiones exactas que se descargaron de internet. |
+| **`login.js`** | Lo creas tú a mano en la raíz. | Es el **sistema bajo prueba** (la función con la lógica de usuario y contraseña). |
+| **`features/login.feature`** | Lo creas tú a mano dentro de la carpeta `features`. | Es el archivo de **criterios de aceptación en español** (lenguaje Gherkin: Dado, Cuando, Entonces). |
+| **`features/login_steps.js`** | Lo creas tú a mano dentro de la carpeta `features`. | Es el **puente**: toma las frases en español del `.feature` y llama a la función de `login.js`. |
+| **`.github/workflows/ci.yml`** | Creas la carpeta y el archivo a mano. | Le indica a **GitHub Actions** (la nube gratuita) que ejecute `npm test` solo en cada `push`. |
 
 ---
 
-## 📲 2. Paso a Paso en Clase (Pasándoles el código por WhatsApp)
+## 📲 3. Taller en Clase por WhatsApp (Paso a Paso)
 
-Diles a tus compañeros que sigan estos sencillos pasos:
+Guía a tus compañeros con estos sencillos pasos:
 
-### 🔹 Paso 1: Abrir terminal y crear el `package.json`
-Diles: *"Abran VS Code en una carpeta vacía, abran la terminal (`Ctrl + ñ`) y escriban:"*
+### 🔹 Paso 1: Inicializar el proyecto e instalar Cucumber
+Diles: *"Abran VS Code en una carpeta vacía, abran la terminal (`Ctrl + ñ`) y escriban estos dos comandos:"*
+
 ```bash
 npm init -y
 ```
-*(Explícales: Esto les creará automáticamente el archivo `package.json`).*
+*(Explícales: Esto crea el `package.json`).*
+
+```bash
+npm install --save-dev @cucumber/cucumber
+```
+*(Explícales: Esto descarga la herramienta Cucumber de internet y crea la carpeta `node_modules`).*
 
 ---
 
-### 🔹 Paso 2: Crear `login.js` (Pásales este mensaje por WhatsApp)
-Diles: *"Creen un archivo llamado `login.js` y peguen este código que les mandé:"*
+### 🔹 Paso 2: Crear el archivo `login.js`
+Diles: *"En la raíz de la carpeta, creen un archivo llamado `login.js` y péguenle este código:"*
 
+*(Pásales este código por WhatsApp):*
 ```javascript
+// login.js
 function login(usuario, password) {
   // Criterio 3: No permitir campos vacíos
   if (!usuario || !password || usuario.trim() === '' || password.trim() === '') {
@@ -54,64 +74,125 @@ module.exports = { login };
 
 ---
 
-### 🔹 Paso 3: Crear `test.js` (Pásales este mensaje por WhatsApp)
-Diles: *"Ahora creen otro archivo llamado `test.js` y peguen esto:"*
+### 🔹 Paso 3: Crear la carpeta `features` y los 2 archivos
+Diles: *"Creen una carpeta llamada `features`. Adentro van a crear dos archivos:"*
 
+#### 1. Archivo `features/login.feature` (En español)
+*(Pásales este texto por WhatsApp):*
+```gherkin
+# language: es
+Característica: Inicio de Sesión de Usuario
+  Como usuario del sistema
+  Quiero ingresar mis credenciales
+  Para acceder a mi cuenta
+
+  Escenario: Inicio de sesión exitoso
+    Dado que el usuario tiene credenciales válidas
+    Cuando ingresa el usuario "admin" y la contraseña "1234"
+    Entonces el sistema debe permitir el acceso
+    Y debe mostrar el mensaje "Acceso concedido"
+
+  Escenario: Contraseña incorrecta
+    Dado que el usuario intenta ingresar al sistema
+    Cuando ingresa el usuario "admin" y la contraseña "clave_falsa"
+    Entonces el sistema debe denegar el acceso
+    Y debe mostrar el mensaje "Credenciales incorrectas"
+
+  Escenario: Campos vacíos
+    Dado que el usuario no completa los campos
+    Cuando ingresa el usuario "" y la contraseña ""
+    Entonces el sistema debe denegar el acceso
+    Y debe mostrar el mensaje "Todos los campos son obligatorios"
+```
+
+#### 2. Archivo `features/login_steps.js` (La automatización)
+*(Pásales este código por WhatsApp):*
 ```javascript
-const { test, describe } = require('node:test');
-const assert = require('node:assert');
-const { login } = require('./login');
+const { Given, When, Then } = require('@cucumber/cucumber');
+const assert = require('assert');
+const { login } = require('../login');
 
-describe('Criterios de Aceptación para Inicio de Sesión', () => {
+let respuesta = null;
 
-  test('Criterio 1: Debe permitir el acceso cuando el usuario y clave son válidos', () => {
-    assert.strictEqual(login('admin', '1234'), 'Acceso concedido');
-  });
+// DADO (Contexto inicial)
+Given('que el usuario tiene credenciales válidas', () => {});
+Given('que el usuario intenta ingresar al sistema', () => {});
+Given('que el usuario no completa los campos', () => {});
 
-  test('Criterio 2: Debe rechazar el acceso cuando la contraseña no coincide', () => {
-    assert.strictEqual(login('admin', 'clave_falsa'), 'Credenciales incorrectas');
-  });
+// CUANDO (Acción del usuario - Cucumber saca los textos entre comillas)
+When('ingresa el usuario {string} y la contraseña {string}', (usuario, password) => {
+  respuesta = login(usuario, password);
+});
 
-  test('Criterio 3: Debe avisar que faltan datos cuando los campos están vacíos', () => {
-    assert.strictEqual(login('', ''), 'Todos los campos son obligatorios');
-  });
+// ENTONCES (Comprobación con assert)
+Then('el sistema debe permitir el acceso', () => {
+  assert.strictEqual(respuesta, 'Acceso concedido');
+});
 
+Then('el sistema debe denegar el acceso', () => {
+  assert.strictEqual(respuesta !== 'Acceso concedido', true);
+});
+
+Then('debe mostrar el mensaje {string}', (mensajeEsperado) => {
+  assert.strictEqual(respuesta, mensajeEsperado);
 });
 ```
 
 ---
 
-### 🔹 Paso 4: Ejecutar la prueba
-Diles: *"Ahora en la terminal escriban:"*
-```bash
-node --test test.js
+### 🔹 Paso 4: Ajustar el comando en `package.json`
+Diles: *"Abran `package.json` y asegúrense de que en `scripts` diga:"*
+```json
+"scripts": {
+  "test": "cucumber-js --exit"
+}
 ```
-*(O modifiquen en `package.json` la línea `"test": "node --test test.js"` y corran `npm test`).*
+
+---
+
+### 🔹 Paso 5: Correr la prueba
+Diles: *"Escriban en su terminal:"*
+```bash
+npm test
+```
 
 **Resultado que verán en pantalla:**
 ```text
-✔ Criterio 1: Debe permitir el acceso cuando el usuario y clave son válidos
-✔ Criterio 2: Debe rechazar el acceso cuando la contraseña no coincide
-✔ Criterio 3: Debe avisar que faltan datos cuando los campos están vacíos
-ℹ tests 3
-ℹ pass 3
-ℹ fail 0
+3 scenarios (3 passed)
+12 steps (12 passed)
+0m 0.039s
 ```
 
 ---
 
-## ☁️ 3. Entorno DevOps (GitHub Actions)
+## ☁️ 4. Entorno DevOps (GitHub Actions)
 
-Explícales:
-1. Creamos una carpeta `.github/workflows/` y adentro el archivo `ci.yml`.
-2. Ese archivo le dice a GitHub: *"Cada vez que alguien suba código, préndete una máquina virtual Linux y corre `node --test test.js`"*.
-3. Muestra en tu proyector o pantalla la pestaña **Actions** de tu repositorio:  
-   👉 [https://github.com/DEYA7276/Prueba_A/actions](https://github.com/DEYA7276/Prueba_A/actions) con el **check verde (✔)**.
+Explícales al profesor y al grupo:
+1. Creamos la carpeta `.github/workflows/` con el archivo `ci.yml`.
+2. Ese archivo le dice a GitHub:
+   ```yaml
+   name: Pruebas de Aceptacion con Cucumber (DevOps)
+   on: [push]
+   jobs:
+     ejecutar-pruebas:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-node@v4
+           with:
+             node-version: 20
+         - run: npm install
+         - run: npm test
+   ```
+3. Cada vez que alguien sube un cambio a GitHub, una máquina Linux en la nube instala las dependencias y ejecuta `npm test`.
+4. Muestra en tu proyector la pestaña **Actions** de tu repositorio:  
+   👉 [https://github.com/DEYA7276/Prueba_A/actions](https://github.com/DEYA7276/Prueba_A/actions) con el **check verde (✔ Passed)**.
 
 ---
 
-## 🎤 4. Guion para exponer (3 minutos)
-1. *"Buenos días. Las **pruebas de aceptación** validan que el sistema cumpla los requisitos que el usuario final necesita para aceptar el software."*
-2. *"Aquí tenemos 2 archivos sencillos: `login.js` con el sistema, y `test.js` con los 3 criterios de aceptación del cliente."*
-3. *"Al ejecutarlo, Node valida en milisegundos que los 3 criterios se cumplan."*
-4. *"Y en GitHub Actions (plataforma libre de DevOps), esto se corre solo en la nube para garantizar que el código entregado siempre funcione."*
+## 🎤 5. Guion para tu Exposición (3 minutos)
+1. *"Buenos días. Nuestro tema son las **Pruebas de Aceptación**."*
+2. *"A diferencia de una prueba unitaria, la prueba de aceptación valida **los criterios del negocio desde la perspectiva del usuario final**."*
+3. *"Para implementarlo utilizamos **Cucumber**, que es la herramienta estándar de la industria. Cucumber permite escribir las pruebas en lenguaje humano con **Gherkin** (Dado, Cuando, Entonces) en el archivo `.feature`."*
+4. *(Muestras la ejecución en vivo)* *"Al correr `npm test`, Cucumber conecta las frases en español con nuestra lógica y comprueba que se cumplan los 3 escenarios."*
+5. *(Muestras GitHub Actions)* *"Y con GitHub Actions demostramos la Integración Continua (CI): cada commit se valida automáticamente en la nube sin depender de la máquina del programador."*
