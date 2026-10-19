@@ -1,8 +1,3 @@
-# 🥒 Guía Completa de Pruebas de Aceptación con Cucumber.js
-
-Esta guía te explica **qué es Cucumber**, **de dónde sale cada archivo** (para que sepas explicárselo al profesor y compañeros), y te da el **paso a paso exacto para pasarles los códigos por WhatsApp**.
-
----
 
 ## 🧐 1. ¿Qué es Cucumber y por qué se usa aquí?
 
