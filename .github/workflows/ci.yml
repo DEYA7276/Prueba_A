@@ -1,16 +1,17 @@
-name: Pruebas de Aceptacion con Cucumber (DevOps)
+name: Pruebas de Aceptacion CI (DevOps)
 
 on:
   push:
   pull_request:
+    branches: [ main, master ]
 
 jobs:
   ejecutar-pruebas:
-    name: Ejecutar Cucumber en Linux
+    name: Validar Criterios de Aceptacion
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar repositorio
+      - name: Descargar codigo del repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Node.js
@@ -18,8 +19,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Instalar Cucumber
+      - name: Instalar dependencias
         run: npm install
 
-      - name: Correr pruebas de aceptacion
+      - name: Ejecutar Cucumber (Pruebas de Aceptacion)
         run: npm test
+
+      - name: Resumen en GitHub (Exito)
+        if: success()
+        run: |
+          echo "## 🟢 Criterios de Aceptación: APROBADOS" >> $GITHUB_STEP_SUMMARY
+          echo "Todos los escenarios pasaron exitosamente. El software cumple con lo que el cliente pidió." >> $GITHUB_STEP_SUMMARY
+
+      - name: Resumen en GitHub (Fallo Detectado)
+        if: failure()
+        run: |
+          echo "## 🔴 Criterios de Aceptación: RECHAZADOS" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ **Se detectó una discrepancia en las reglas del negocio.** El código no puede ser integrado hasta corregirse." >> $GITHUB_STEP_SUMMARY
